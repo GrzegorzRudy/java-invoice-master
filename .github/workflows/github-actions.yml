@@ -1,3 +1,4 @@
+
 name: CI for Java Invoice
 on: [push]
 jobs:
