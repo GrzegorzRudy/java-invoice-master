@@ -8,10 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pl.edu.agh.mwo.invoice.Invoice;
-import pl.edu.agh.mwo.invoice.product.DairyProduct;
-import pl.edu.agh.mwo.invoice.product.OtherProduct;
-import pl.edu.agh.mwo.invoice.product.Product;
-import pl.edu.agh.mwo.invoice.product.TaxFreeProduct;
+import pl.edu.agh.mwo.invoice.product.*;
 
 public class InvoiceTest {
     private Invoice invoice;
@@ -144,6 +141,28 @@ public class InvoiceTest {
         invoice.addProduct(product, 5);
         Assert.assertEquals(1, invoice.getNumberOfPosition());
         Assert.assertEquals(10, invoice.getProductQuantity(product));
+
+    }
+    @Test
+    public void testVATforFUEL() {
+
+        Invoice invoice = new Invoice();
+        Product product = new FuelCanister("ropa", new BigDecimal("5"));
+        BigDecimal VAT = new BigDecimal("5.56");
+        BigDecimal paliwoZaPiataka = new BigDecimal("5");
+        invoice.addProduct(product, 1);
+        Assert.assertEquals((paliwoZaPiataka.add(VAT)), product.getPrice());
+
+    }
+    @Test
+    public void testVATforWINE() {
+
+        Invoice invoice = new Invoice();
+        Product product = new FuelCanister("amarena", new BigDecimal("20"));
+        BigDecimal VAT = new BigDecimal("5.56");
+        BigDecimal paliwoZaPiataka = new BigDecimal("20");
+        invoice.addProduct(product, 1);
+        Assert.assertEquals((paliwoZaPiataka.add(VAT)), product.getPrice());
 
     }
 

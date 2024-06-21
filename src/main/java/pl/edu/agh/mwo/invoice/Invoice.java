@@ -12,13 +12,13 @@ public class Invoice {
 
         Invoice invoice = new Invoice();
         Product product = new DairyProduct("Mleko", new BigDecimal("4.50"));
-        Product product2 = new OtherProduct("szklanka", new BigDecimal("4.50"));
+        Product product2 = new OtherProduct("szklanka", new BigDecimal("6.00"));
         Product product3 = new FuelCanister("ropa", new BigDecimal("4.50"));
         Product product4 = new BottleOfWine("Amarena", new BigDecimal("16.50"));
         invoice.addProduct(product, 2);
         invoice.addProduct(product, 3);
         invoice.addProduct(product, 5);
-        invoice.addProduct(product2, 5);
+        invoice.addProduct(product2, 1);
         invoice.addProduct(product3, 1);
         invoice.addProduct(product4, 1);
         System.out.println(invoice.generateProductList());
@@ -96,16 +96,19 @@ public class Invoice {
         productList.append("---------------------------------------------------------------\n");
 
         products.forEach((product, quantity) -> {
-            BigDecimal totalPrice = product.getPrice().multiply(BigDecimal.valueOf(quantity));
+            BigDecimal totalPrice = product.getPriceWithTax().multiply(BigDecimal.valueOf(quantity));
             String productName = product.getName();
             String quantityAndPrice = "Ilość:" + quantity + "|Cena:" + totalPrice;
-            String line = String.format("| %-30s | %-10s |\n", productName, quantityAndPrice);
+            String line = String.format("| %-20s | %-36s |\n", productName, quantityAndPrice);
             productList.append(line);
         });
 
         productList.append("---------------------------------------------------------------\n");
-        productList.append("Liczba pozycji: ");
+        productList.append("Liczba pozycji na fakturze: ");
+        productList.append(products.size()+"\n");
+        productList.append("Liczba produktów na fakturze: ");
         productList.append(getNumberOfItems());
+
 
         return productList.toString();
     }
