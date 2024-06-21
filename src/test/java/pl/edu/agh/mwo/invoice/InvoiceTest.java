@@ -146,4 +146,5 @@ public class InvoiceTest {
         Assert.assertEquals(10, invoice.getProductQuantity(product));
 
     }
+
 }

@@ -5,9 +5,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import pl.edu.agh.mwo.invoice.product.Product;
+import pl.edu.agh.mwo.invoice.product.*;
 
 public class Invoice {
+    public static void main(String[] args){
+
+        Invoice invoice = new Invoice();
+        Product product = new DairyProduct("Mleko", new BigDecimal("4.50"));
+        Product product2 = new OtherProduct("szklanka", new BigDecimal("4.50"));
+        Product product3 = new FuelCanister("ropa", new BigDecimal("4.50"));
+        Product product4 = new BottleOfWine("Amarena", new BigDecimal("16.50"));
+        invoice.addProduct(product, 2);
+        invoice.addProduct(product, 3);
+        invoice.addProduct(product, 5);
+        invoice.addProduct(product2, 5);
+        invoice.addProduct(product3, 1);
+        invoice.addProduct(product4, 1);
+        System.out.println(invoice.generateProductList());
+    }
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
 
     public void addProduct(Product product) {
@@ -68,6 +83,33 @@ public class Invoice {
     public int getNumberOfPosition() {
         return products.size();
     }
+    public String generateProductList() {
 
+        StringBuilder productList = new StringBuilder();
+
+        productList.append("Numer faktury: ");
+        productList.append(getNumber());
+        productList.append("\n");
+
+        productList.append("---------------------------------------------------------------\n");
+        productList.append("|                       Lista produktów                       |\n");
+        productList.append("---------------------------------------------------------------\n");
+
+        products.forEach((product, quantity) -> {
+            BigDecimal totalPrice = product.getPrice().multiply(BigDecimal.valueOf(quantity));
+            String productName = product.getName();
+            String quantityAndPrice = "Ilość:" + quantity + "|Cena:" + totalPrice;
+            String line = String.format("| %-30s | %-10s |\n", productName, quantityAndPrice);
+            productList.append(line);
+        });
+
+        productList.append("---------------------------------------------------------------\n");
+        productList.append("Liczba pozycji: ");
+        productList.append(getNumberOfItems());
+
+        return productList.toString();
+    }
+    public int getNumberOfItems() {return products.values().stream().mapToInt(Integer::intValue).sum();
+    }
 
 }
