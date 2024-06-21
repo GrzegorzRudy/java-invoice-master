@@ -144,25 +144,25 @@ public class InvoiceTest {
 
     }
     @Test
-    public void testVATforFUEL() {
+    public void testExciseforFUEL() {
 
         Invoice invoice = new Invoice();
         Product product = new FuelCanister("ropa", new BigDecimal("5"));
-        BigDecimal VAT = new BigDecimal("5.56");
+        BigDecimal EXCISE = new BigDecimal("5.56");
         BigDecimal paliwoZaPiataka = new BigDecimal("5");
         invoice.addProduct(product, 1);
-        Assert.assertEquals((paliwoZaPiataka.add(VAT)), product.getPrice());
+        Assert.assertEquals((paliwoZaPiataka.add(EXCISE)), product.getPrice());
 
     }
     @Test
-    public void testVATforWINE() {
+    public void testExciseforWINE() {
 
         Invoice invoice = new Invoice();
         Product product = new FuelCanister("amarena", new BigDecimal("20"));
-        BigDecimal VAT = new BigDecimal("5.56");
+        BigDecimal EXCISE = new BigDecimal("5.56");
         BigDecimal paliwoZaPiataka = new BigDecimal("20");
         invoice.addProduct(product, 1);
-        Assert.assertEquals((paliwoZaPiataka.add(VAT)), product.getPrice());
+        Assert.assertEquals((paliwoZaPiataka.add(EXCISE)), product.getPrice());
 
     }
 
