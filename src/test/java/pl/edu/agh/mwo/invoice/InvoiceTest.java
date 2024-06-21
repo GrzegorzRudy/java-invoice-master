@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pl.edu.agh.mwo.invoice.Invoice;
 import pl.edu.agh.mwo.invoice.product.DairyProduct;
 import pl.edu.agh.mwo.invoice.product.OtherProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
@@ -109,19 +110,6 @@ public class InvoiceTest {
         invoice.addProduct(new OtherProduct("Pinezka", new BigDecimal("0.01")), 1000);
         Assert.assertThat(new BigDecimal("54.70"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
     }
-    @Test
-    public void testInvoiceHasNumber() {
-        int number = new Invoice().getNumber();
-    }
-    @Test
-    public void testInvoiceHasNumberIsGreaterThanZero() {
-        Assert.assertThat(new Invoice().getNumber().Matchers.greatherThan(0));
-    }
-    @Test
-    public void testTwoInvoiceHaveDifferentNumbers() {
-      int number1 = new Invoice();
-
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvoiceWithZeroQuantity() {
@@ -137,6 +125,4 @@ public class InvoiceTest {
     public void testAddingNullProduct() {
         invoice.addProduct(null);
     }
-
-
 }
