@@ -28,4 +28,4 @@ checkstyle:
                 distribution: 'adopt'
             - name: Checkstyle
               run: mvn checkstyle:check
->>>>>>> 4af990e7daabe99cf26f5c4f82ef80dfce1f1a55
+
