@@ -125,4 +125,25 @@ public class InvoiceTest {
     public void testAddingNullProduct() {
         invoice.addProduct(null);
     }
+    @Test
+    public void testInnvoiceNumber() {
+        int number = new Invoice().getNumber();
+    }
+    @Test
+    public void testInnvoiceNumberIsGreaterThanZero() {
+        Assert.assertThat(new Invoice().getNumber(), Matchers.greaterThan(0));
+
+    }
+    @Test
+    public void testAddDuplicateProduct() {
+
+        Invoice invoice = new Invoice();
+        Product product = new DairyProduct("Mleko", new BigDecimal("4.50"));
+        invoice.addProduct(product, 2);
+        invoice.addProduct(product, 3);
+        invoice.addProduct(product, 5);
+        Assert.assertEquals(1, invoice.getNumberOfPosition());
+        Assert.assertEquals(10, invoice.getProductQuantity(product));
+
+    }
 }
